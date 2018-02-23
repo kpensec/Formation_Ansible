@@ -9,6 +9,10 @@ Vagrant.configure("2") do |config|
         machine.vm.network "private_network", ip: "172.17.177.22"
     end
 
+    config.vm.define "webdev" do |machine|
+      machine.vm.network "private_network", ip: "172.17.177.23"
+    end
+
     config.vm.define 'controller' do |machine|
         machine.vm.network "private_network", ip: "172.17.177.11"
       
@@ -16,8 +20,8 @@ Vagrant.configure("2") do |config|
         config.vm.provision "file", source: "inventory", destination: "/home/vagrant/inventory"
        
         config.vm.synced_folder "./", "/vagrant",
-        owner: "vagrant",
-        mount_options: ["dmode=775,fmode=600"]
+            owner: "vagrant",
+            mount_options: ["dmode=775,fmode=600"]
 
         machine.vm.provision :ansible_local do |ansible|
             ansible.playbook = "playbook.yml"
