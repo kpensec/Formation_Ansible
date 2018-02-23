@@ -1,0 +1,5 @@
+- hosts: controller
+  tasks:
+      - name: ensure vim latest version
+        apt: name=vim state=latest
+
