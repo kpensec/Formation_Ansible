@@ -1,0 +1,4 @@
+- hosts: nodes
+  tasks:
+  - name: check cmd-test.txt existance
+    stat: path=/home/vagrant/cmd-test.txt 

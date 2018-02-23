@@ -3,21 +3,26 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "node1" do |machine|
         machine.vm.network "private_network", ip: "172.17.177.21"
+        machine.vm.hostname = "node1"
     end
 
     config.vm.define "node2" do |machine|
         machine.vm.network "private_network", ip: "172.17.177.22"
+        machine.vm.hostname = "node2"
     end
 
     config.vm.define "webdev" do |machine|
-      machine.vm.network "private_network", ip: "172.17.177.23"
+        machine.vm.network "private_network", ip: "172.17.177.23"
+        machine.vm.hostname = "webdev"
     end
 
     config.vm.define 'controller' do |machine|
         machine.vm.network "private_network", ip: "172.17.177.11"
+        machine.vm.hostname = "controller"
       
         config.vm.provision "file", source: "ansible.cfg", destination: "/home/vagrant/.ansible.cfg"
         config.vm.provision "file", source: "inventory", destination: "/home/vagrant/inventory"
+        config.vm.provision "file", source: "playbook.yml", destination: "/home/vagrant/playbook.yml"
        
         config.vm.synced_folder "./", "/vagrant",
             owner: "vagrant",
@@ -33,4 +38,4 @@ Vagrant.configure("2") do |config|
         end
     end
 end
-# vim: set syntax=ruby :
+# vim: set syntax=ruby:set ts=4:

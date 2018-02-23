@@ -1,0 +1,5 @@
+- import_playbook: /vagrant/playbook/file_stat.yml
+- hosts: nodes
+  tasks:
+  - name: copy cmd-test.txt
+    copy: src=/home/vagrant/cmd-test.txt dest=/home/vagrant/cmd-test.txt

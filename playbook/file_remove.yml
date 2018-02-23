@@ -1,0 +1,4 @@
+- hosts: nodes
+  tasks:
+  - name: copy cmd-test.txt
+    file: path=/home/vagrant/cmd-test.txt state=absent

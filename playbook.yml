@@ -1,5 +1,39 @@
-- hosts: controller
+- hosts: all
   tasks:
-      - name: ensure vim latest version
-        apt: name=vim state=latest
+  - name: ensure avahi-daemon latest version
+    apt: name=avahi-daemon state=latest
+    become: true
 
+  - name: ensure libnss-mdns latest version
+    apt: name=libnss-mdns state=latest
+    become: true
+
+- hosts: controller
+  roles:
+  - common
+  become: true
+
+- hosts: nodes
+  roles:
+  - common
+  become: true
+
+
+- hosts: webserver
+  roles:
+  - common
+  - geerlingguy.apache
+  become: true
+  tasks:
+  - name: restart apache2
+    service: name=apache2 state=restarted
+    notify:
+    - copy index.html
+    become: true
+  
+  handlers:
+  - name: copy index.html
+    copy: src=/vagrant/views/index.html dest=/var/www/html/index.html
+    become: true
+  
+# vim: set tabstop=2:set shiftwidth=2 :
